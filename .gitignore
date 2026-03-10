@@ -1,0 +1,55 @@
+# Xcode
+#
+# Build generated
+build/
+DerivedData/
+
+# User settings
+xcuserdata/
+*.xcuserstate
+
+# Scheme management
+xcshareddata/xcschemes/
+
+# Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# Swift Package Manager
+#
+# Packages directory
+Packages/
+# Package.resolved file can be committed but often ignored to avoid conflicts
+# Package.resolved
+
+# CocoaPods
+Pods/
+# Uncomment if you want to avoid committing the CocoaPods project file
+# *.xcworkspace
+
+# Carthage
+Carthage/Build/
+
+# fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+
+# Xcode 8+
+*.xccheckout
+*.moved-aside
+*.xcuserstate
+
+# Bugly (Crash reporting, optional)
+BuglySDK.log
+
+# Temporary files
+*.swp
+*.lock
+
+# macOS
+.DS_Store
+
+# Swift Package Manager
+.swiftpm/xcode/package.xcworkspace/
