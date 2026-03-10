@@ -6,20 +6,23 @@ struct ContentView: View {
     @StateObject private var viewModel = IPTVViewModel()
 
     var body: some View {
-        HSplitView {
-            // Left: playlist input + channel list
-            VStack(alignment: .leading, spacing: 12) {
-                playlistSection
-                Divider()
-                channelListSection
-            }
-            .frame(minWidth: 320, maxWidth: 400)
-            .padding()
-
-            // Right: video player
+        NavigationSplitView {
+            sidebar
+        } detail: {
             playerSection
         }
-        .background(Color(NSColor.windowBackgroundColor))
+    }
+
+    private var sidebar: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            playlistSection
+            Divider()
+            channelListSection
+        }
+        .frame(minWidth: 260, idealWidth: 320, maxWidth: 400)
+        .padding(.horizontal, 12)
+        .padding(.vertical, 8)
+        .navigationTitle("IPTV Player")
     }
 
     private var playlistSection: some View {
@@ -109,8 +112,7 @@ struct ContentView: View {
                             viewModel.selectAndPlay(channel)
                         }
                 }
-                .listStyle(.inset)
-                .scrollContentBackground(.hidden)
+                .listStyle(.sidebar)
             }
         }
     }
