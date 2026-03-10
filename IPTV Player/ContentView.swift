@@ -58,6 +58,28 @@ struct ContentView: View {
                 .disabled(viewModel.m3uURLString.trimmingCharacters(in: .whitespaces).isEmpty || viewModel.isLoading)
                 .buttonStyle(.borderedProminent)
             }
+
+            if !viewModel.playlistHistory.isEmpty {
+                VStack(alignment: .leading, spacing: 6) {
+                    Text("History")
+                        .font(.subheadline)
+                        .fontWeight(.medium)
+                        .foregroundStyle(.secondary)
+                    ScrollView(.vertical, showsIndicators: true) {
+                        VStack(alignment: .leading, spacing: 4) {
+                            ForEach(viewModel.playlistHistory) { entry in
+                                PlaylistHistoryRowView(
+                                    entry: entry,
+                                    onSelect: { viewModel.applyHistoryEntry(entry) },
+                                    onRemove: { viewModel.removeHistoryEntry(entry) }
+                                )
+                            }
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    .frame(maxHeight: 120)
+                }
+            }
         }
     }
 
@@ -111,6 +133,51 @@ struct ContentView: View {
             }
         }
         .frame(minWidth: 480)
+    }
+}
+
+struct PlaylistHistoryRowView: View {
+    let entry: PlaylistHistoryEntry
+    let onSelect: () -> Void
+    let onRemove: () -> Void
+
+    var body: some View {
+        HStack(alignment: .center, spacing: 6) {
+            Button {
+                onSelect()
+            } label: {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(entry.urlString)
+                        .font(.caption)
+                        .lineLimit(1)
+                        .truncationMode(.middle)
+                        .foregroundStyle(.primary)
+                        .multilineTextAlignment(.leading)
+                    if !entry.userAgent.isEmpty {
+                        Text("UA: \(entry.userAgent)")
+                            .font(.caption2)
+                            .foregroundStyle(.secondary)
+                            .lineLimit(1)
+                            .truncationMode(.tail)
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.vertical, 4)
+                .padding(.horizontal, 6)
+                .background(Color(NSColor.controlBackgroundColor))
+                .clipShape(RoundedRectangle(cornerRadius: 4))
+            }
+            .buttonStyle(.plain)
+
+            Button {
+                onRemove()
+            } label: {
+                Image(systemName: "xmark.circle.fill")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+            .buttonStyle(.plain)
+        }
     }
 }
 

@@ -14,6 +14,7 @@
 		A1000005 /* M3UParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000005 /* M3UParser.swift */; };
 		A1000006 /* PlayerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000006 /* PlayerService.swift */; };
 		A1000007 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2000007 /* Assets.xcassets */; };
+		A1000008 /* PlaylistHistoryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2000009 /* PlaylistHistoryEntry.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		A2000005 /* M3UParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = M3UParser.swift; sourceTree = "<group>"; };
 		A2000006 /* PlayerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerService.swift; sourceTree = "<group>"; };
 		A2000007 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A2000009 /* PlaylistHistoryEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistHistoryEntry.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				A2000004 /* Channel.swift */,
+				A2000009 /* PlaylistHistoryEntry.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -156,6 +159,7 @@
 				A1000004 /* Channel.swift in Sources */,
 				A1000005 /* M3UParser.swift in Sources */,
 				A1000006 /* PlayerService.swift in Sources */,
+				A1000008 /* PlaylistHistoryEntry.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
