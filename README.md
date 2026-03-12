@@ -4,8 +4,8 @@ A native macOS app that plays IPTV streams from M3U playlist URLs, with optional
 
 ## Requirements
 
-- macOS 13.0 or later
-- Xcode 15+ (for building)
+- macOS 26.0 or later
+- Xcode 26+ (for building)
 
 ## Features
 
