@@ -107,12 +107,14 @@ struct ContentView: View {
                 List(viewModel.channels, selection: $viewModel.selectedChannelID) { channel in
                     ChannelRowView(channel: channel)
                         .tag(channel.id)
-                        .contentShape(Rectangle())
-                        .onTapGesture {
-                            viewModel.selectAndPlay(channel)
-                        }
                 }
                 .listStyle(.sidebar)
+                .onChange(of: viewModel.selectedChannelID) { oldValue, newValue in
+                    if let channelID = newValue,
+                       let channel = viewModel.channels.first(where: { $0.id == channelID }) {
+                        viewModel.selectAndPlay(channel)
+                    }
+                }
             }
         }
     }
