@@ -14,7 +14,7 @@ final class IPTVViewModel: ObservableObject {
     @Published var selectedChannelID: String?
     @Published var isLoading = false
     @Published var loadError: String?
-    @Published var playerLayer: AVPlayerLayer?
+    @Published var player: AVPlayer?
     @Published var playerContentID = UUID()
     @Published var playlistHistory: [PlaylistHistoryEntry] = []
 
@@ -97,9 +97,7 @@ final class IPTVViewModel: ObservableObject {
         selectedChannelID = channel.id
         // User-agent for playback: per-URL. We use the same custom UA as the playlist if one was set.
         playerService.play(url: channel.url, userAgent: playlistUA)
-        if let layer = playerService.playerLayer {
-            playerLayer = layer
-            playerContentID = UUID()
-        }
+        player = playerService.player
+        playerContentID = UUID()
     }
 }

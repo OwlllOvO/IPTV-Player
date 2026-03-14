@@ -123,8 +123,8 @@ struct ContentView: View {
         ZStack {
             Color.black
 
-            if let layer = viewModel.playerLayer {
-                VideoPlayerLayerView(layer: layer)
+            if let player = viewModel.player {
+                VideoPlayerView(player: player)
                     .id(viewModel.playerContentID)
             } else {
                 VStack(spacing: 12) {
@@ -203,35 +203,20 @@ struct ChannelRowView: View {
     }
 }
 
-/// Hosting view that wraps an AVPlayerLayer for SwiftUI.
-struct VideoPlayerLayerView: NSViewRepresentable {
-    let layer: AVPlayerLayer
+/// Wraps AVPlayerView for SwiftUI, providing native macOS playback controls.
+struct VideoPlayerView: NSViewRepresentable {
+    let player: AVPlayer
 
-    func makeNSView(context: Context) -> NSView {
-        let view = PlayerContainerView()
-        view.wantsLayer = true
-        view.layer?.addSublayer(layer)
+    func makeNSView(context: Context) -> AVPlayerView {
+        let view = AVPlayerView()
+        view.player = player
+        view.controlsStyle = .inline
         return view
     }
 
-    func updateNSView(_ nsView: NSView, context: Context) {
-        guard let container = nsView as? PlayerContainerView else { return }
-        if layer.superlayer != container.layer {
-            layer.removeFromSuperlayer()
-            container.layer?.addSublayer(layer)
-        }
-        container.playerLayer = layer
-    }
-
-    class PlayerContainerView: NSView {
-        var playerLayer: AVPlayerLayer? {
-            didSet { needsLayout = true }
-        }
-
-        override func layout() {
-            super.layout()
-            guard let layer = playerLayer else { return }
-            layer.frame = bounds
+    func updateNSView(_ nsView: AVPlayerView, context: Context) {
+        if nsView.player !== player {
+            nsView.player = player
         }
     }
 }

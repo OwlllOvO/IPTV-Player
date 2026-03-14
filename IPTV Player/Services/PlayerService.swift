@@ -4,16 +4,9 @@ import Foundation
 /// Plays a stream URL with an optional custom User-Agent (per-URL, not global).
 final class PlayerService: ObservableObject {
 
-    private var player: AVPlayer?
+    private(set) var player: AVPlayer?
     private var currentURL: URL?
     private var currentUserAgent: String?
-
-    var playerLayer: AVPlayerLayer? {
-        guard let p = player else { return nil }
-        let layer = AVPlayerLayer(player: p)
-        layer.videoGravity = .resizeAspect
-        return layer
-    }
 
     /// Play a stream. Uses custom User-Agent if provided; otherwise system default.
     func play(url: URL, userAgent: String?) {
