@@ -172,8 +172,6 @@ struct PlaylistHistoryRowView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.vertical, 4)
                 .padding(.horizontal, 6)
-                .background(Color(NSColor.controlBackgroundColor))
-                .clipShape(RoundedRectangle(cornerRadius: 4))
             }
             .buttonStyle(.plain)
 
