@@ -4,22 +4,36 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var viewModel = IPTVViewModel()
+    @State private var showInspector = true
 
     var body: some View {
         NavigationSplitView {
             sidebar
+                .frame(minWidth: 220, idealWidth: 280)
         } detail: {
             playerSection
+        }
+        .inspector(isPresented: $showInspector) {
+            channelListSection
+                .inspectorColumnWidth(min: 200, ideal: 260, max: 400)
+        }
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                    showInspector.toggle()
+                } label: {
+                    Label("Channels", systemImage: "sidebar.trailing")
+                }
+                .help("Toggle Channels Inspector")
+            }
         }
     }
 
     private var sidebar: some View {
         VStack(alignment: .leading, spacing: 12) {
             playlistSection
-            Divider()
-            channelListSection
+            Spacer()
         }
-        .frame(minWidth: 260, idealWidth: 320, maxWidth: 400)
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
         .navigationTitle("IPTV Player")
@@ -87,22 +101,13 @@ struct ContentView: View {
     }
 
     private var channelListSection: some View {
-        VStack(alignment: .leading, spacing: 8) {
-            HStack {
-                Text("Channels")
-                    .font(.headline)
-                if !viewModel.channels.isEmpty {
-                    Text("(\(viewModel.channels.count))")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                }
-            }
-
+        Group {
             if viewModel.channels.isEmpty && !viewModel.isLoading {
-                Text("Enter an M3U URL and tap Load playlist.")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                ContentUnavailableView {
+                    Label("No Channels", systemImage: "tv")
+                } description: {
+                    Text("Load an M3U playlist to see channels here.")
+                }
             } else {
                 List(viewModel.channels, selection: $viewModel.selectedChannelID) { channel in
                     ChannelRowView(channel: channel)
@@ -117,6 +122,7 @@ struct ContentView: View {
                 }
             }
         }
+        .navigationTitle("Channels (\(viewModel.channels.count))")
     }
 
     private var playerSection: some View {
@@ -127,16 +133,14 @@ struct ContentView: View {
                 VideoPlayerView(player: player)
                     .id(viewModel.playerContentID)
             } else {
-                VStack(spacing: 12) {
-                    Image(systemName: "play.rectangle")
-                        .font(.system(size: 48))
-                        .foregroundStyle(.secondary)
-                    Text("Select a channel to play")
-                        .foregroundStyle(.secondary)
+                ContentUnavailableView {
+                    Label("IPTV Player", systemImage: "play.tv")
+                } description: {
+                    Text("Load a playlist and select a channel to start watching.")
                 }
             }
         }
-        .frame(minWidth: 480)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 

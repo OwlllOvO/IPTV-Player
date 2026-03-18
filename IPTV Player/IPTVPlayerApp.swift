@@ -7,7 +7,8 @@ struct IPTVPlayerApp: App {
             ContentView()
                 .frame(minWidth: 900, minHeight: 600)
         }
-        .windowStyle(.hiddenTitleBar)
+        .windowStyle(.automatic)
+        .defaultSize(width: 1400, height: 900)
         .commands {
             CommandGroup(replacing: .newItem) {}
         }
