@@ -47,9 +47,17 @@ struct ContentView: View {
             TextField("https://example.com/playlist.m3u", text: $viewModel.m3uURLString)
                 .textFieldStyle(.roundedBorder)
 
-            Text("Custom User-Agent (optional, used only for this playlist URL)")
-                .font(.caption)
-                .foregroundStyle(.secondary)
+            VStack(alignment: .leading, spacing: 2) {
+                Text("Custom User-Agent (Optional)")
+                    .font(.caption)
+                    .fontWeight(.medium)
+                    .foregroundStyle(.secondary)
+
+                Text("used only for this playlist URL.")
+                    .font(.caption2)
+                    .foregroundStyle(.tertiary)
+            }
+            .padding(.top, 4)
 
             TextField("Leave empty for default", text: $viewModel.playlistUserAgent)
                 .textFieldStyle(.roundedBorder)
